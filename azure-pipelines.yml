@@ -28,7 +28,8 @@ steps:
       
       echo '#############'
       
-      allure generate --output /home/vsts/work/1/s/target/allure-report/20200817.9 /home/vsts/work/1/s/target/allure-results
+      /home/vsts/work/_tasks/AllureGenerate_**/1.0.0/node_modules/allure-commandline/bin/allure generate --output /home/vsts/work/1/s/target/allure-report/20200817.9 /home/vsts/work/1/s/target/allure-results
+
   
 
 - task: Maven@3
