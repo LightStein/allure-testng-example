@@ -14,6 +14,7 @@ public class SimpleTest {
         step("step 1");
         step("step 2");
         System.out.println(System.getProperty("user.dir"));
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     }
 }
 
