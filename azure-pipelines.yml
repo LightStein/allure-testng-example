@@ -10,6 +10,27 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo apt-add-repository ppa:yandex-qatools/allure-framework
+      
+      sudo apt-get update
+      
+      sudo apt-get install allure-commandline
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo '#############'
+      
+      allure generate --output /home/vsts/work/1/s/target/allure-report/20200817.9 /home/vsts/work/1/s/target/allure-results
+  
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -24,6 +45,3 @@ steps:
   inputs:
     resultsDir: 'target/allure-results'
     targetDir: 'target/allure-report/$(Build.BuildNumber)'
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
