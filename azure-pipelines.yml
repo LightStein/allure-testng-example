@@ -33,6 +33,16 @@ steps:
       sudo apt-get install allure
 
 - task: Bash@3
+  # continueOnError: true
   inputs:
     targetType: 'inline'
-    script: 'allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results'
+    script: |
+      # check allure
+      allure --version
+      # run allure
+      allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
+      
+- task: publishHtml@1
+  inputs:
+    artifactName: 'Allure Reports'
+    htmlFilePath: '/home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html'
