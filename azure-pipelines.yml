@@ -24,30 +24,34 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-- task: Bash@3
+- task: AllureGenerate@1
   inputs:
-    targetType: 'inline'
-    script: |
-      sudo apt install unzip
-      wget https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.13.5/allure-commandline-2.13.5.zip
-      unzip allure-commandline-2.13.5.zip
+    resultsDir: 'target/allure-results'
+    targetDir: 'allure-report/$(Build.BuildNumber)'
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       sudo apt install unzip
+#       wget https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.13.5/allure-commandline-2.13.5.zip
+#       unzip allure-commandline-2.13.5.zip
 
 
-- task: Bash@3
-  # continueOnError: true
-  inputs:
-    targetType: 'inline'
-    script: |
-      # check allure
-      ./allure-2.13.5/bin/allure --version
-      # run allure
-      ./allure-2.13.5/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
+# - task: Bash@3
+#   # continueOnError: true
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       # check allure
+#       ./allure-2.13.5/bin/allure --version
+#       # run allure
+#       ./allure-2.13.5/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
       
-      ls /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/
+#       ls /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/
       
-      cat /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html
+#       cat /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html
       
-- task: publishHtml@1
-  inputs:
-    artifactName: 'Allure Reports'
-    htmlFilePath: '/home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html'
+# - task: publishHtml@1
+#   inputs:
+#     artifactName: 'Allure Reports'
+#     htmlFilePath: '/home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html'
