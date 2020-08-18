@@ -28,9 +28,10 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      sudo apt-add-repository ppa:qameta/allure -y
-      sudo apt-get update -y
-      sudo apt-get install -y allure
+      sudo apt install unzip
+      wget https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.13.5/allure-commandline-2.13.5.zip
+      unzip allure-commandline-2.13.5.zip
+
 
 - task: Bash@3
   # continueOnError: true
@@ -38,9 +39,9 @@ steps:
     targetType: 'inline'
     script: |
       # check allure
-      allure --version
+      ./allure-2.13.5/bin/allure --version
       # run allure
-      node allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
+      ./allure-2.13.5/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
       
 - task: publishHtml@1
   inputs:
