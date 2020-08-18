@@ -40,7 +40,7 @@ steps:
       # check allure
       allure --version
       # run allure
-      node allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
+      /usr/local/bin/node /home/vsts/work/_tasks/AllureGenerate_5c975f9d-1c3a-469f-b7c2-8907bf3eacf1/1.0.0/node_modules/allure-commandline/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
       
 - task: publishHtml@1
   inputs:
