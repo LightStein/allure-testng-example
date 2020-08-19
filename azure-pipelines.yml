@@ -51,9 +51,8 @@ steps:
       cat /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html
 
 - task: AllureGenerate@1
-  continueOnError: true
   inputs:
-    resultsDir: 'allure-results'
+    resultsDir: 'target/allure-results'
     targetDir: 'allure-report/$(Build.BuildNumber)'
 # - task: publishHtml@1
 #   inputs:
