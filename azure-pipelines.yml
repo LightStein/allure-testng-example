@@ -53,9 +53,8 @@ steps:
 - task: AllureGenerate@1
   continueOnError: true
   inputs:
-    resultsDir: 'target/allure-results'
+    resultsDir: 'allure-results'
     targetDir: 'allure-report/$(Build.BuildNumber)'
-
 # - task: publishHtml@1
 #   inputs:
 #     artifactName: 'Allure Reports'
