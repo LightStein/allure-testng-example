@@ -10,26 +10,34 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  URL: "https://dev.azure.com/'$(System.CollectionId)'/'$(System.TeamProject)'/_build/results?buildId='$(Build.BuildNumber)'&view=ms.vss-test-web.build-test-results-tab"
 
 steps:
+- script: |
+    echo ${{variables.URL}}
+    echo ${{System.TeamProject}} 
+    echo ${{System.CollectionId}}
+    echo ${{Build.BuildNumber}}
 
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'pom.xml'
+#     mavenOptions: '-Xmx3072m'
+#     javaHomeOption: 'JDKVersion'
+#     jdkVersionOption: '1.8'
+#     jdkArchitectureOption: 'x64'
+#     publishJUnitResults: true
+#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#     goals: 'package'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":"https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab","text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
-      echo ${SLACK_PAYLOAD}
+      URL="https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab"
+      SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":$URL,"text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
+      echo $SLACK_PAYLOAD
       echo $DAVID_URL
       curl -X POST -H 'Content-type: application/json' --data "${SLACK_PAYLOAD}" "${DAVID_URL}"
 
