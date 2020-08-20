@@ -46,7 +46,7 @@ steps:
       echo 
       echo $URL
       
-      curl -X POST -H 'Content-type: application/json' --data "$SLACK_PAYLOAD" $DAVID_URL
+      curl -X POST -H 'Content-type: application/json' --data $SLACK_PAYLOAD $DAVID_URL
 
 
 # - task: Bash@3
