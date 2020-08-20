@@ -10,15 +10,15 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  URL: "https://dev.azure.com/'$(System.CollectionId)'/'$(System.TeamProject)'/_build/results?buildId='$(Build.BuildNumber)'&view=ms.vss-test-web.build-test-results-tab"
+# variables:
+#   URL: "https://dev.azure.com/'$(System.CollectionId)'/'$(System.TeamProject)'/_build/results?buildId='$(Build.BuildNumber)'&view=ms.vss-test-web.build-test-results-tab"
 
 steps:
 - script: |
     echo ${{variables.URL}}
-    # echo ${{System.TeamProject}} 
-    # echo ${{System.CollectionId}}
-    # echo ${{Build.BuildNumber}}
+    echo ${{System.TeamProject}} 
+    echo ${{System.CollectionId}}
+    echo ${{Build.BuildNumber}}
 
 # - task: Maven@3
 #   inputs:
