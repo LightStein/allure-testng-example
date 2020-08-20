@@ -37,9 +37,11 @@ steps:
     targetType: 'inline'
     script: |
       URL="https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab"
+      
       SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":$URL,"text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
-      echo $SLACK_PAYLOAD
-      echo $DAVID_URL
+      
+      echo $URL
+      
       curl -X POST -H 'Content-type: application/json' --data "${SLACK_PAYLOAD}" "${DAVID_URL}"
 
 
