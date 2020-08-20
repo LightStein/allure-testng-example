@@ -28,7 +28,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":"GET https://dev.azure.com/'${organization}'/'${project}'/_apis/test/Runs/{runId}/results/'${testCaseResultId}'?api-version=6.0-preview.6","text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
+      SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":"https://dev.azure.com/'${organization}'/'${project}'/_apis/test/Runs/'${runId}'/results/'${testCaseResultId}'?api-version=6.0-preview.6","text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
       echo ${SLACK_PAYLOAD}
       curl -X POST -H 'Content-type: application/json' --data ${SLACK_PAYLOAD} ${DAVID_URL}
 
