@@ -30,7 +30,8 @@ steps:
     script: |
       SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":"https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab","text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
       echo ${SLACK_PAYLOAD}
-      curl -X POST -H 'Content-type: application/json' --data "${SLACK_PAYLOAD}" ${DAVID_URL}
+      echo $DAVID_URL
+      curl -X POST -H 'Content-type: application/json' --data "${SLACK_PAYLOAD}" "${DAVID_URL}"
 
 
 # - task: Bash@3
