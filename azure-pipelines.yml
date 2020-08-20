@@ -11,14 +11,15 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  URL: Build.BuildUri
+  name: URL
+  value: "https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId='$(Build.BuildId)'&view=ms.vss-test-web.build-test-results-tab"
 
 steps:
 - script: |
-    echo $(variables.URL)
-    echo $(Build.BuildUri)
-    # echo $(System.CollectionId)
-    # echo $(Build.BuildNumber)
+    echo $(Build.BuildId)
+    echo $(System.TeamProject)
+    echo $(System.CollectionId)
+    echo $(Build.BuildNumber)
 
 # - task: Maven@3
 #   inputs:
@@ -35,7 +36,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      # URL="https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab"
+      URL="https://dev.azure.com/'${System.CollectionId}'/'${System.TeamProject}'/_build/results?buildId='${Build.BuildNumber}'&view=ms.vss-test-web.build-test-results-tab"
       SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":$URL,"text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
       echo $SLACK_PAYLOAD
       echo $DAVID_URL
