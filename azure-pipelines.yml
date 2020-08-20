@@ -32,10 +32,13 @@ steps:
 #     goals: 'package'
 
 - task: Bash@3
+  env:
+    DAVID_URL: $(DAVID_URL)
+    build_number: $(build_number)
   inputs:
     targetType: 'inline'
     script: |
-      echo ${Build.BuildId}
+      echo ${build_number}
 
       URL='https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId=${build_number}&view=ms.vss-test-web.build-test-results-tab'
       
