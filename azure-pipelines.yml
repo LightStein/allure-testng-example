@@ -35,7 +35,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo $build_number
+      echo $Build.BuildId
 
       URL='https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId=${build_number}&view=ms.vss-test-web.build-test-results-tab'
       
