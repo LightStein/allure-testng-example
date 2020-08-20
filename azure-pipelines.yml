@@ -15,10 +15,10 @@ pool:
 
 steps:
 - script: |
-    echo ${{variables.URL}}
-    echo ${{System.TeamProject}} 
-    echo ${{System.CollectionId}}
-    echo ${{Build.BuildNumber}}
+    echo $(variables.URL)
+    echo $(System.TeamProject)
+    echo $(System.CollectionId)
+    echo $(Build.BuildNumber)
 
 # - task: Maven@3
 #   inputs:
