@@ -24,31 +24,37 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-
-
-
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      sudo apt install unzip
-      wget https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.13.5/allure-commandline-2.13.5.zip
-      unzip allure-commandline-2.13.5.zip
+      SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":"GET https://dev.azure.com/{organization}/{project}/_apis/test/Runs/{runId}/results/{testCaseResultId}?api-version=6.0-preview.6","text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
+      
+      curl -X POST -H 'Content-type: application/json' --data ${SLACK_PAYLOAD} https://hooks.slack.com/services/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
 
 
-- task: Bash@3
-  continueOnError: true
-  inputs:
-    targetType: 'inline'
-    script: |
-      # check allure
-      ./allure-2.13.5/bin/allure --version
-      # run allure
-      ./allure-2.13.5/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       sudo apt install unzip
+#       wget https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.13.5/allure-commandline-2.13.5.zip
+#       unzip allure-commandline-2.13.5.zip
+
+
+# - task: Bash@3
+#   continueOnError: true
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       # check allure
+#       ./allure-2.13.5/bin/allure --version
+#       # run allure
+#       ./allure-2.13.5/bin/allure generate --output /home/vsts/work/1/s/allure-report/$(Build.BuildNumber) /home/vsts/work/1/s/target/allure-results
       
-      ls /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/
+#       ls /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/
       
-      cat /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html
+#       cat /home/vsts/work/1/s/allure-report/$(Build.BuildNumber)/index.html
 
 # - task: AllureGenerate@1
 #   inputs:
