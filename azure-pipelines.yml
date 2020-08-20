@@ -10,8 +10,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# variables:
-#   URL: "https://dev.azure.com/'$(System.CollectionId)'/'$(System.TeamProject)'/_build/results?buildId='$(Build.BuildNumber)'&view=ms.vss-test-web.build-test-results-tab"
+variables:
+  URL: "https://dev.azure.com/'$(System.CollectionId)'/'$(System.TeamProject)'/_build/results?buildId='$(Build.BuildNumber)'&view=ms.vss-test-web.build-test-results-tab"
 
 steps:
 - script: |
