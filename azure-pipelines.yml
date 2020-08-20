@@ -10,9 +10,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# variables:
-#   name: URL
-#   value: "https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId='$(Build.BuildId)'&view=ms.vss-test-web.build-test-results-tab"
+variables:
+  name: build_number
+  value: $(Build.BuildId)
 
 steps:
 - script: |
@@ -36,10 +36,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      URL= https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId=${Build.BuildNumber}&view=ms.vss-test-web.build-test-results-tab
+      echo ${build_number}
+      
+      URL='https://dev.azure.com/angiorganashvili/angiorganashvili/_build/results?buildId=${build_number}&view=ms.vss-test-web.build-test-results-tab'
       
       SLACK_PAYLOAD='{"blocks":[{"type":"section","text":{"type":"plain_text","text":"UI ტესტირება დასრულებულია","emoji":true}},{"type":"actions","elements":[{"type":"button","url":$URL,"text":{"type":"plain_text","text":"ნახე შედეგები","emoji":true},"value":"ნახე შედეგები"}]}]}'
-      
+      echo 
       echo $URL
       
       curl -X POST -H 'Content-type: application/json' --data "$SLACK_PAYLOAD" $DAVID_URL
